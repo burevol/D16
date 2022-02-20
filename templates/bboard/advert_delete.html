@@ -1,0 +1,38 @@
+{% extends 'bboard/default.html' %}
+
+{% block title %} Удаление поста {% endblock title %}
+
+{% block content %}
+    <h2>Вы действительно хотите удалить данный пост?</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                Заголовок
+            </th>
+            <th>
+                Категория
+            </th>
+            <th>
+                Текст
+            </th>
+        </tr>
+
+        </thead>
+        <tr>
+            <td>
+                {{ post.header|title }}
+            </td>
+            <td>
+                {{ post.get_category_display }}
+            </td>
+            <td>
+                {{ post.text }}
+            </td>
+        </tr>
+    </table>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Подтвердить"></form>
+{% endblock content %} 

@@ -1,0 +1,21 @@
+{% extends "bboard/default.html" %}
+
+{% block content %}
+    <h1>Список объявлений:</h1>
+
+    {% if object_list %}
+        <ul>
+
+            {% for post in object_list %}
+                <li>
+                    <a href="{{ post.get_absolute_url }}">{{ post.header }}</a> ({{ post.author }})
+                    <a href="{% url 'post-update' post.id %}">Редактировать</a>
+                    <a href="{% url 'post-delete' post.id %}">Удалить</a>
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <p>Объявления не найдены</p>
+    {% endif %}
+{% endblock %}

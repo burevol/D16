@@ -1,0 +1,22 @@
+{% extends "bboard/default.html" %}
+
+{% block content %}
+    <h1>Список объявлений</h1>
+
+    {% if object_list %}
+        <ul>
+
+            {% for post in object_list %}
+                <li>
+                    <a href="{{ post.get_absolute_url }}">{{ post.header }}</a> ({{ post.author }})
+                    {% if request.user != post.author %}
+                        <a href="{% url 'message-add' post.pk %}">Добавить отклик</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <p>Объявления не найдены</p>
+    {% endif %}
+{% endblock %}

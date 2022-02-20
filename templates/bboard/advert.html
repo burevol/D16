@@ -1,0 +1,20 @@
+{% extends "bboard/default.html" %}
+
+{% block content %}
+
+    <p>{{ post.header }}</p>
+    <p>{{ post.text }}</p>
+
+
+    {% if post.message_set.all %}
+        <p>Отклики</p>
+        {% for message in post.message_set.all %}
+            {{ message.sender }} {{ message.date }} {{ message.content }}
+            <a href=""
+        {% endfor %}
+    {% else %}
+        <p>Отклики не найдены</p>
+    {% endif %}
+
+
+{% endblock %}
