@@ -1,20 +1,24 @@
 {% extends "bboard/default.html" %}
 
 {% block content %}
+    <h3>Объявление: {{ advert.header }}</h3>
+    <p>{{ advert.content|safe }}</p>
 
-    <p>{{ post.header }}</p>
-    <p>{{ post.text }}</p>
-
-
-    {% if post.message_set.all %}
-        <p>Отклики</p>
-        {% for message in post.message_set.all %}
-            {{ message.sender }} {{ message.date }} {{ message.content }}
-            <a href=""
-        {% endfor %}
-    {% else %}
-        <p>Отклики не найдены</p>
+    {% if request.user == advert.author %}
+        <a href="{% url 'advert_update' advert.pk %}">Редактировать</a>
+        <a href="{% url 'advert_delete' advert.pk %}">Удалить</a>
     {% endif %}
 
+    {% if request.user == advert.author %}
+        {% if advert.response_set.all %}
+            <p>Отклики</p>
+            {% for response in advert.response_set.all %}
+                {{ response.sender }} {{ response.date }} {{ response.content }}
+                <a href="{% url 'accept_response' response.pk %}">Принять отклик</a>
+            {% endfor %}
+        {% else %}
+            <p>Отклики не найдены</p>
+        {% endif %}
+    {% endif %}
 
 {% endblock %}

@@ -4,18 +4,61 @@
     <h1>Список объявлений</h1>
 
     {% if object_list %}
-        <ul>
-
-            {% for post in object_list %}
-                <li>
-                    <a href="{{ post.get_absolute_url }}">{{ post.header }}</a> ({{ post.author }})
-                    {% if request.user != post.author %}
-                        <a href="{% url 'message-add' post.pk %}">Добавить отклик</a>
+        <table>
+        <thead>
+        <tr>
+            <th>
+                Заголовок
+            </th>
+            <th>
+                Автор
+            </th>
+            <th>
+                Категория
+            </th>
+            <th>
+                Дата
+            </th>
+            <th>
+                Действие
+            </th>
+        </tr>
+        </thead>
+        {% for advert in object_list %}
+            <tr>
+                <td>
+                    <a href="{{ advert.get_absolute_url }}">{{ advert.header }}</a>
+                </td>
+                <td>
+                    {{ advert.author }}
+                </td>
+                <td>
+                    {{ advert.get_category_display }}
+                </td>
+                <td>
+                    {{ advert.date }}
+                </td>
+                <td>
+                    {% if request.user != advert.author %}
+                        <a href="{% url 'response_add' advert.pk %}">Добавить отклик</a>
+                    {% else %}
+                        <a href="{% url 'advert_update' advert.pk %}">Редактировать</a>
+                        <a href="{% url 'advert_delete' advert.pk %}">Удалить</a>
                     {% endif %}
-                </li>
-            {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+        {% endif %}
+        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
 
-        </ul>
     {% else %}
         <p>Объявления не найдены</p>
     {% endif %}

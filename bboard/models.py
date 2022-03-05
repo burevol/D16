@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -34,7 +35,7 @@ CATEGORY = [
 
 class Advert(models.Model):
     header = models.CharField(max_length=256, blank=True, null=True, verbose_name='Заголовок')
-    text = models.TextField(verbose_name='Текст объявления')
+    content = RichTextUploadingField(blank=True, null=True, verbose_name='Текст объявления')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     category = models.CharField(max_length=3, choices=CATEGORY, verbose_name='Категория')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')

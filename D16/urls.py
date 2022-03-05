@@ -23,6 +23,7 @@ from D16 import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('bboard/', include('bboard.urls')),
-    path('', RedirectView.as_view(url='/bboard/posts/', permanent=True))
+    path('', RedirectView.as_view(url='/bboard/categories/', permanent=True))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <!-- TODO привести в порядок базовый шаблон -->
     {% block title %}<title>Local Library</title>{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +22,24 @@
         <div class="col-sm-2">
             {% block sidebar %}
                 <ul class="sidebar-nav">
-                    <li><a href="{% url 'posts' %}">Все объявления</a></li>
-                    <li><a href="{% url 'my-posts' %}">Мои объявления</a></li>
-                    <li><a href="{% url 'post-create' %}">Добавить объявление</a></li>
+                    {% if request.user.is_authenticated %}
+                        Текущий пользователь: {{ request.user.username }}
+                    {% endif %}
+                    <li><a href="{% url 'adverts' %}">Все объявления</a></li>
+                    <li><a href="{% url 'categories' %}">Категории</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'my_adverts' %}">Мои объявления</a></li>
+                        <li><a href="{% url 'my_responses' %}">Отклики</a></li>
+                        <li><a href="{% url 'advert_create' %}">Добавить объявление</a></li>
+                    {% endif %}
                     {% if request.user.is_staff %}
-                         <li><a href="{% url 'send-mass-email' %}">Отправить рассылку</a></li>
+                        <li><a href="{% url 'send_mass_email' %}">Отправить рассылку</a></li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li><a href="/accounts/logout/">Выйти</a></li>
+                    {% else %}
+                        <li><a href="/accounts/login/">Войти</a></li>
+                        <li><a href="/accounts/signup/">Зарегистрироваться</a></li>
                     {% endif %}
                 </ul>
             {% endblock %}

@@ -13,7 +13,7 @@ class ResponseAdmin(admin.ModelAdmin):
 
 @admin.register(Advert)
 class AdvertAdmin(admin.ModelAdmin):
-    fields = ('author', 'category', 'header', 'text')
+    fields = ('author', 'category', 'header', 'content')
     list_display = ('header', 'date', 'author', 'category')
     list_filter = ('date', 'author', 'category')
     ordering = ('-date',)

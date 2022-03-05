@@ -1,0 +1,21 @@
+{% extends "bboard/default.html" %}
+
+{% block content %}
+    <h3>Главный раздел</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                Наименование
+            </th>
+        </tr>
+        </thead>
+        {% for code, category in categories %}
+            <tr>
+                <td>
+                    <a href="{% url 'adverts' code%}">{{ category }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

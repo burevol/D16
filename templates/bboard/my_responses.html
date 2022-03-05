@@ -1,16 +1,19 @@
 {% extends "bboard/default.html" %}
 
 {% block content %}
-    <h1>Список объявлений:</h1>
-
+    <h3>Список откликов:</h3>
+    <form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
     {% if object_list %}
         <ul>
 
-            {% for advert in object_list %}
+            {% for response in filter.qs %}
                 <li>
-                    <a href="{{ advert.get_absolute_url }}">{{ advert.header }}</a> ({{ advert.author }})
-                    <a href="{% url 'advert_update' advert.id %}">Редактировать</a>
-                    <a href="{% url 'advert_delete' advert.id %}">Удалить</a>
+                    {{ response.date }} {{ response.sender }} {{ response.content }}
+                    <a href="{% url 'accept_response' response.id %}">Принять</a>
+                    <a href="{% url 'response_delete' response.id %}">Удалить</a>
                 </li>
             {% endfor %}
 

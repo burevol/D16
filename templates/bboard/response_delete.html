@@ -1,17 +1,17 @@
 {% extends 'bboard/default.html' %}
 
-{% block title %} Удаление поста {% endblock title %}
+{% block title %} Удаление отклика {% endblock title %}
 
 {% block content %}
-    <h2>Вы действительно хотите удалить данный пост?</h2>
+    <h3>Вы действительно хотите удалить данный отклик?</h3>
     <table>
         <thead>
         <tr>
             <th>
-                Заголовок
+                Отправитель
             </th>
             <th>
-                Категория
+                Дата
             </th>
             <th>
                 Текст
@@ -21,13 +21,13 @@
         </thead>
         <tr>
             <td>
-                {{ advert.header|title }}
+                {{ response.sender }}
             </td>
             <td>
-                {{ advert.get_category_display }}
+                {{ response.date }}
             </td>
             <td>
-                {{ advert.content|safe|striptags|truncatechars:100 }}
+                {{ response.content }}
             </td>
         </tr>
     </table>
